@@ -31,7 +31,7 @@ Form-Based Editing: Add, edit, and delete symptoms, questions, and chemical test
 
 Generate New File: Download a perfectly formatted app_data.json file, ready for deployment.
 
-You can find the editor tool in the editor.html file in this repository.
+You can find the editor tool in the editor.html file in this repository or here: https://grahamm89.github.io/DishWTroubleshoot-BackEnd/ContentsEditor.html
 
 How to Update Application Content
 Updating the live application is a simple, three-step process:
