@@ -1,8 +1,10 @@
 How to Use This Tool
 
-Open in Browser: Double-click the saved file to open it in your web browser.
+Open in Browser: https://grahamm89.github.io/WebApp-BackEnd/ContentsEditor.html
 
-Load Data (Optional): Click the "Choose File" button and select your existing app_data.json if you want to edit it.
+Load Data: Click the "Choose File" button and select your existing app_data.json if you want to edit it. You can download the existing file from this repository. 
+
+The APPS current content will load. 
 
 Edit Content:
 
