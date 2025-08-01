@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dishwasher Helper - Content Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for a cleaner look */
+        body {
+            background-color: #f7fafc;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.5rem;
+            overflow: hidden; /* Ensures child border-radius is respected */
+        }
+        .card-header {
+            background-color: #edf2f7;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .item-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .item-card-body {
+            padding: 1rem;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #fed7d7;
+            color: #c53030;
+            border-radius: 9999px;
+            width: 1.75rem;
+            height: 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .delete-btn:hover {
+            background-color: #fbb6b6;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-align: center;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #4299e1;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #3182ce;
+        }
+        .btn-secondary {
+            background-color: #48bb78;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #38a169;
+        }
+        .btn-disabled {
+            background-color: #a0aec0;
+            cursor: not-allowed;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-700">Content Editor</h1>
+            <p class="text-gray-600 mt-2">A simple tool to create or update the <code class="bg-gray-200 text-sm p-1 rounded">app_data.json</code> file for the Dishwasher Helper.</p>
+        </header>
+
+        <!-- Step 1: Upload -->
+        <div class="card">
+            <div class="card-header">Step 1: Load Your Data</div>
+            <div class="card-body">
+                <p class="mb-4 text-gray-600">Upload your existing <code class="bg-gray-200 text-sm p-1 rounded">app_data.json</code> file to edit it. If you don't have one, you can start from scratch.</p>
+                <input type="file" id="fileUploader" accept=".json" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+            </div>
+        </div>
+
+        <!-- Editor Section (Initially Hidden) -->
+        <main id="editor" class="hidden">
+            <!-- Symptoms Section -->
+            <section class="card">
+                <div class="card-header flex justify-between items-center">
+                    <h2>Symptoms</h2>
+                    <button id="addSymptom" class="btn btn-secondary text-sm py-2 px-3">Add Symptom</button>
+                </div>
+                <div class="card-body" id="symptomsContainer">
+                    <!-- Symptoms will be dynamically added here -->
+                </div>
+            </section>
+
+            <!-- Questions Section -->
+            <section class="card">
+                <div class="card-header flex justify-between items-center">
+                    <h2>Essential Check Questions</h2>
+                    <button id="addQuestion" class="btn btn-secondary text-sm py-2 px-3">Add Question</button>
+                </div>
+                <div class="card-body" id="questionsContainer">
+                    <!-- Questions will be dynamically added here -->
+                </div>
+            </section>
+
+            <!-- Chemical Tests Section -->
+            <section class="card">
+                <div class="card-header flex justify-between items-center">
+                    <h2>Chemical Tests</h2>
+                    <button id="addTest" class="btn btn-secondary text-sm py-2 px-3">Add Test</button>
+                </div>
+                <div class="card-body" id="testsContainer">
+                    <!-- Tests will be dynamically added here -->
+                </div>
+            </section>
+
+            <!-- Step 2: Download -->
+            <div class="card">
+                <div class="card-header">Step 2: Save and Download</div>
+                <div class="card-body text-center">
+                     <p class="mb-4 text-gray-600">Once you've finished editing, click the button below to download your updated file.</p>
+                    <button id="downloadBtn" class="btn btn-primary w-full md:w-auto">Download app_data.json</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Templates for dynamic items -->
+    <template id="symptomTemplate">
+        <div class="item-card">
+            <div class="delete-btn" onclick="this.parentElement.remove()">&#x2715;</div>
+            <div class="item-card-body grid grid-cols-1 gap-4">
+                <div>
+                    <label>Symptom Name</label>
+                    <input type="text" class="symptom-name" placeholder="e.g., Tannin Stains">
+                </div>
+                <div>
+                    <label>Likely Causes</label>
+                    <textarea class="symptom-causes" rows="2" placeholder="Describe the likely causes..."></textarea>
+                </div>
+                <div>
+                    <label>Suggested Actions</label>
+                    <textarea class="symptom-actions" rows="2" placeholder="Describe the suggested actions..."></textarea>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="questionTemplate">
+        <div class="item-card">
+            <div class="delete-btn" onclick="this.parentElement.remove()">&#x2715;</div>
+            <div class="item-card-body grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2">
+                    <label>Question Text</label>
+                    <input type="text" class="question-text" placeholder="e.g., Is the dosing equipment switched on?">
+                </div>
+                <div>
+                    <label>Key (Unique ID)</label>
+                    <input type="text" class="question-key" placeholder="e.g., dosingOn (no spaces)">
+                </div>
+                <div>
+                    <label>Note (Optional)</label>
+                    <input type="text" class="question-note" placeholder="e.g., Pref: 40–55 °C pre-wash...">
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="testTemplate">
+        <div class="item-card">
+            <div class="delete-btn" onclick="this.parentElement.remove()">&#x2715;</div>
+            <div class="item-card-body grid grid-cols-1 gap-4">
+                <div>
+                    <label>Test Title</label>
+                    <input type="text" class="test-title" placeholder="e.g., Detecting Starch">
+                </div>
+                <div>
+                    <label>Description</label>
+                    <textarea class="test-description" rows="2" placeholder="Describe the test procedure..."></textarea>
+                </div>
+                <div>
+                    <label>Check / Follow-up (Optional)</label>
+                    <input type="text" class="test-check" placeholder="e.g., Check rinse arms are not blocked...">
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // UI Elements
+            const fileUploader = document.getElementById('fileUploader');
+            const editor = document.getElementById('editor');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const addSymptomBtn = document.getElementById('addSymptom');
+            const addQuestionBtn = document.getElementById('addQuestion');
+            const addTestBtn = document.getElementById('addTest');
+            
+            const symptomsContainer = document.getElementById('symptomsContainer');
+            const questionsContainer = document.getElementById('questionsContainer');
+            const testsContainer = document.getElementById('testsContainer');
+
+            // Templates
+            const symptomTemplate = document.getElementById('symptomTemplate');
+            const questionTemplate = document.getElementById('questionTemplate');
+            const testTemplate = document.getElementById('testTemplate');
+
+            // --- Event Listeners ---
+            fileUploader.addEventListener('change', handleFileUpload);
+            addSymptomBtn.addEventListener('click', () => addSymptom());
+            addQuestionBtn.addEventListener('click', () => addQuestion());
+            addTestBtn.addEventListener('click', () => addTest());
+            downloadBtn.addEventListener('click', generateAndDownloadJson);
+
+            // --- File Handling ---
+            function handleFileUpload(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        populateForms(data);
+                        editor.classList.remove('hidden');
+                    } catch (err) {
+                        alert('Error: Invalid JSON file. Please check the file and try again.');
+                        console.error(err);
+                    }
+                };
+                reader.readAsText(file);
+            }
+
+            // --- UI Population ---
+            function populateForms(data) {
+                // Clear existing content
+                symptomsContainer.innerHTML = '';
+                questionsContainer.innerHTML = '';
+                testsContainer.innerHTML = '';
+
+                if (data.symptoms) {
+                    Object.entries(data.symptoms).forEach(([name, details]) => {
+                        addSymptom(name, details.causes, details.actions);
+                    });
+                }
+                if (data.questions) {
+                    data.questions.forEach(q => {
+                        addQuestion(q.text, q.key, q.note);
+                    });
+                }
+                if (data.chemicalTests) {
+                    data.chemicalTests.forEach(t => {
+                        addTest(t.title, t.description, t.check);
+                    });
+                }
+            }
+
+            // --- Add Item Functions ---
+            function addSymptom(name = '', causes = '', actions = '') {
+                const clone = symptomTemplate.content.cloneNode(true);
+                clone.querySelector('.symptom-name').value = name;
+                clone.querySelector('.symptom-causes').value = causes;
+                clone.querySelector('.symptom-actions').value = actions;
+                symptomsContainer.appendChild(clone);
+            }
+
+            function addQuestion(text = '', key = '', note = '') {
+                const clone = questionTemplate.content.cloneNode(true);
+                clone.querySelector('.question-text').value = text;
+                clone.querySelector('.question-key').value = key;
+                clone.querySelector('.question-note').value = note;
+                questionsContainer.appendChild(clone);
+            }
+
+            function addTest(title = '', description = '', check = '') {
+                const clone = testTemplate.content.cloneNode(true);
+                clone.querySelector('.test-title').value = title;
+                clone.querySelector('.test-description').value = description;
+                clone.querySelector('.test-check').value = check;
+                testsContainer.appendChild(clone);
+            }
+            
+            // --- JSON Generation and Download ---
+            function generateAndDownloadJson() {
+                const finalData = {
+                    symptoms: {},
+                    questions: [],
+                    chemicalTests: []
+                };
+
+                // Compile Symptoms
+                symptomsContainer.querySelectorAll('.item-card').forEach(card => {
+                    const name = card.querySelector('.symptom-name').value.trim();
+                    const causes = card.querySelector('.symptom-causes').value.trim();
+                    const actions = card.querySelector('.symptom-actions').value.trim();
+                    if (name) {
+                        finalData.symptoms[name] = { causes, actions };
+                    }
+                });
+
+                // Compile Questions
+                questionsContainer.querySelectorAll('.item-card').forEach(card => {
+                    const text = card.querySelector('.question-text').value.trim();
+                    const key = card.querySelector('.question-key').value.trim();
+                    const note = card.querySelector('.question-note').value.trim();
+                    if (text && key) {
+                        finalData.questions.push({ key, text, note });
+                    }
+                });
+
+                // Compile Tests
+                testsContainer.querySelectorAll('.item-card').forEach(card => {
+                    const title = card.querySelector('.test-title').value.trim();
+                    const description = card.querySelector('.test-description').value.trim();
+                    const check = card.querySelector('.test-check').value.trim();
+                    if (title && description) {
+                        const testData = { title, description };
+                        if (check) {
+                            testData.check = check;
+                        }
+                        finalData.chemicalTests.push(testData);
+                    }
+                });
+
+                // Create and trigger download
+                const jsonString = JSON.stringify(finalData, null, 2); // Pretty print
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'app_data.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            
+            // Show editor immediately for users starting from scratch
+            editor.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
