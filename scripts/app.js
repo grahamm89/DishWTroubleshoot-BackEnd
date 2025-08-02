@@ -137,7 +137,10 @@ document.addEventListener('DOMContentLoaded', () => {
       txt += '\n--- Symptom ---\n';
       txt += symptomSel.value ? `${symptomSel.value}\n` : 'None selected\n';
       txt += symptomResult.textContent.trim() ? '\n' + symptomResult.textContent.trim() : '';
-      navigator.clipboard.writeText(txt).then(() => alert('Summary copied!'));
+      navigator.clipboard
+        .writeText(txt)
+        .then(() => alert('Summary copied!'))
+        .catch(() => alert('Could not copy summary. Please copy manually.'));
     });
     ['mMake', 'mModel'].forEach(id => {
       const el = $('#' + id);
