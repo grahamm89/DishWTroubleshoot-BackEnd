@@ -5,102 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dishwasher Helper - Content Editor</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom styles for a cleaner look */
-        body {
-            background-color: #f7fafc;
-        }
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            margin-bottom: 1.5rem;
-            overflow: hidden; /* Ensures child border-radius is respected */
-        }
-        .card-header {
-            background-color: #edf2f7;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 1rem 1.5rem;
-            font-weight: 600;
-        }
-        .card-body {
-            padding: 1.5rem;
-        }
-        .item-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-            position: relative;
-        }
-        .item-card-body {
-            padding: 1rem;
-        }
-        .delete-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background-color: #fed7d7;
-            color: #c53030;
-            border-radius: 9999px;
-            width: 1.75rem;
-            height: 1.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .delete-btn:hover {
-            background-color: #fbb6b6;
-        }
-        .btn {
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            font-weight: 600;
-            text-align: center;
-            transition: background-color 0.2s;
-            cursor: pointer;
-        }
-        .btn-primary {
-            background-color: #4299e1;
-            color: white;
-        }
-        .btn-primary:hover {
-            background-color: #3182ce;
-        }
-        .btn-secondary {
-            background-color: #48bb78;
-            color: white;
-        }
-        .btn-secondary:hover {
-            background-color: #38a169;
-        }
-        .btn-disabled {
-            background-color: #a0aec0;
-            cursor: not-allowed;
-        }
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #cbd5e0;
-            border-radius: 4px;
-            transition: border-color 0.2s;
-        }
-        input[type="text"]:focus, textarea:focus {
-            outline: none;
-            border-color: #4299e1;
-            box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
-        }
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: #4a5568;
-        }
-    </style>
 </head>
-<body class="text-gray-800">
+<body class="bg-gray-100 text-gray-800">
 
     <div class="container mx-auto p-4 md:p-8 max-w-4xl">
         <header class="text-center mb-8">
@@ -109,9 +15,9 @@
         </header>
 
         <!-- Step 1: Upload -->
-        <div class="card">
-            <div class="card-header">Step 1: Load Your Data</div>
-            <div class="card-body">
+        <div class="bg-white rounded-lg shadow mb-6 overflow-hidden">
+            <div class="bg-gray-200 border-b border-gray-200 px-6 py-4 font-semibold">Step 1: Load Your Data</div>
+            <div class="p-6">
                 <p class="mb-4 text-gray-600">Upload your existing <code class="bg-gray-200 text-sm p-1 rounded">app_data.json</code> file to edit it. If you don't have one, you can start from scratch.</p>
                 <input type="file" id="fileUploader" accept=".json" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
             </div>
@@ -120,44 +26,44 @@
         <!-- Editor Section (Initially Hidden) -->
         <main id="editor" class="hidden">
             <!-- Symptoms Section -->
-            <section class="card">
-                <div class="card-header flex justify-between items-center">
+            <section class="bg-white rounded-lg shadow mb-6 overflow-hidden">
+                <div class="bg-gray-200 border-b border-gray-200 px-6 py-4 font-semibold flex justify-between items-center">
                     <h2>Symptoms</h2>
-                    <button id="addSymptom" class="btn btn-secondary text-sm py-2 px-3">Add Symptom</button>
+                    <button id="addSymptom" class="bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 px-3 rounded-md transition-colors">Add Symptom</button>
                 </div>
-                <div class="card-body" id="symptomsContainer">
+                <div class="p-6" id="symptomsContainer">
                     <!-- Symptoms will be dynamically added here -->
                 </div>
             </section>
 
             <!-- Questions Section -->
-            <section class="card">
-                <div class="card-header flex justify-between items-center">
+            <section class="bg-white rounded-lg shadow mb-6 overflow-hidden">
+                <div class="bg-gray-200 border-b border-gray-200 px-6 py-4 font-semibold flex justify-between items-center">
                     <h2>Essential Check Questions</h2>
-                    <button id="addQuestion" class="btn btn-secondary text-sm py-2 px-3">Add Question</button>
+                    <button id="addQuestion" class="bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 px-3 rounded-md transition-colors">Add Question</button>
                 </div>
-                <div class="card-body" id="questionsContainer">
+                <div class="p-6" id="questionsContainer">
                     <!-- Questions will be dynamically added here -->
                 </div>
             </section>
 
             <!-- Chemical Tests Section -->
-            <section class="card">
-                <div class="card-header flex justify-between items-center">
+            <section class="bg-white rounded-lg shadow mb-6 overflow-hidden">
+                <div class="bg-gray-200 border-b border-gray-200 px-6 py-4 font-semibold flex justify-between items-center">
                     <h2>Chemical Tests</h2>
-                    <button id="addTest" class="btn btn-secondary text-sm py-2 px-3">Add Test</button>
+                    <button id="addTest" class="bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 px-3 rounded-md transition-colors">Add Test</button>
                 </div>
-                <div class="card-body" id="testsContainer">
+                <div class="p-6" id="testsContainer">
                     <!-- Tests will be dynamically added here -->
                 </div>
             </section>
 
             <!-- Step 2: Download -->
-            <div class="card">
-                <div class="card-header">Step 2: Save and Download</div>
-                <div class="card-body text-center">
+            <div class="bg-white rounded-lg shadow mb-6 overflow-hidden">
+                <div class="bg-gray-200 border-b border-gray-200 px-6 py-4 font-semibold">Step 2: Save and Download</div>
+                <div class="p-6 text-center">
                      <p class="mb-4 text-gray-600">Once you've finished editing, click the button below to download your updated file.</p>
-                    <button id="downloadBtn" class="btn btn-primary w-full md:w-auto">Download app_data.json</button>
+                    <button id="downloadBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md transition-colors w-full md:w-auto py-2 px-4">Download app_data.json</button>
                 </div>
             </div>
         </main>
@@ -165,60 +71,66 @@
 
     <!-- Templates for dynamic items -->
     <template id="symptomTemplate">
-        <div class="item-card">
-            <div class="delete-btn" onclick="this.parentElement.remove()">&#x2715;</div>
-            <div class="item-card-body grid grid-cols-1 gap-4">
+        <div class="item-card border border-gray-200 rounded-md mb-4 relative">
+            <div class="absolute top-2 right-2 bg-red-200 text-red-700 rounded-full w-7 h-7 flex items-center justify-center cursor-pointer transition-colors hover:bg-red-300" onclick="this.parentElement.remove()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </div>
+            <div class="p-4 grid grid-cols-1 gap-4">
                 <div>
-                    <label>Symptom Name</label>
-                    <input type="text" class="symptom-name" placeholder="e.g., Tannin Stains">
+                    <label class="block font-semibold mb-1 text-gray-700">Symptom Name</label>
+                    <input type="text" class="symptom-name w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="e.g., Tannin Stains">
                 </div>
                 <div>
-                    <label>Likely Causes</label>
-                    <textarea class="symptom-causes" rows="2" placeholder="Describe the likely causes..."></textarea>
+                    <label class="block font-semibold mb-1 text-gray-700">Likely Causes</label>
+                    <textarea class="symptom-causes w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" rows="2" placeholder="Describe the likely causes..."></textarea>
                 </div>
                 <div>
-                    <label>Suggested Actions</label>
-                    <textarea class="symptom-actions" rows="2" placeholder="Describe the suggested actions..."></textarea>
+                    <label class="block font-semibold mb-1 text-gray-700">Suggested Actions</label>
+                    <textarea class="symptom-actions w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" rows="2" placeholder="Describe the suggested actions..."></textarea>
                 </div>
             </div>
         </div>
     </template>
 
     <template id="questionTemplate">
-        <div class="item-card">
-            <div class="delete-btn" onclick="this.parentElement.remove()">&#x2715;</div>
-            <div class="item-card-body grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="item-card border border-gray-200 rounded-md mb-4 relative">
+            <div class="absolute top-2 right-2 bg-red-200 text-red-700 rounded-full w-7 h-7 flex items-center justify-center cursor-pointer transition-colors hover:bg-red-300" onclick="this.parentElement.remove()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </div>
+            <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="md:col-span-2">
-                    <label>Question Text</label>
-                    <input type="text" class="question-text" placeholder="e.g., Is the dosing equipment switched on?">
+                    <label class="block font-semibold mb-1 text-gray-700">Question Text</label>
+                    <input type="text" class="question-text w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="e.g., Is the dosing equipment switched on?">
                 </div>
                 <div>
-                    <label>Key (Unique ID)</label>
-                    <input type="text" class="question-key" placeholder="e.g., dosingOn (no spaces)">
+                    <label class="block font-semibold mb-1 text-gray-700">Key (Unique ID)</label>
+                    <input type="text" class="question-key w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="e.g., dosingOn (no spaces)">
                 </div>
                 <div>
-                    <label>Note (Optional)</label>
-                    <input type="text" class="question-note" placeholder="e.g., Pref: 40–55 °C pre-wash...">
+                    <label class="block font-semibold mb-1 text-gray-700">Note (Optional)</label>
+                    <input type="text" class="question-note w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="e.g., Pref: 40–55 °C pre-wash...">
                 </div>
             </div>
         </div>
     </template>
 
     <template id="testTemplate">
-        <div class="item-card">
-            <div class="delete-btn" onclick="this.parentElement.remove()">&#x2715;</div>
-            <div class="item-card-body grid grid-cols-1 gap-4">
+        <div class="item-card border border-gray-200 rounded-md mb-4 relative">
+            <div class="absolute top-2 right-2 bg-red-200 text-red-700 rounded-full w-7 h-7 flex items-center justify-center cursor-pointer transition-colors hover:bg-red-300" onclick="this.parentElement.remove()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </div>
+            <div class="p-4 grid grid-cols-1 gap-4">
                 <div>
-                    <label>Test Title</label>
-                    <input type="text" class="test-title" placeholder="e.g., Detecting Starch">
+                    <label class="block font-semibold mb-1 text-gray-700">Test Title</label>
+                    <input type="text" class="test-title w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="e.g., Detecting Starch">
                 </div>
                 <div>
-                    <label>Description</label>
-                    <textarea class="test-description" rows="2" placeholder="Describe the test procedure..."></textarea>
+                    <label class="block font-semibold mb-1 text-gray-700">Description</label>
+                    <textarea class="test-description w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" rows="2" placeholder="Describe the test procedure..."></textarea>
                 </div>
                 <div>
-                    <label>Check / Follow-up (Optional)</label>
-                    <input type="text" class="test-check" placeholder="e.g., Check rinse arms are not blocked...">
+                    <label class="block font-semibold mb-1 text-gray-700">Check / Follow-up (Optional)</label>
+                    <input type="text" class="test-check w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="e.g., Check rinse arms are not blocked...">
                 </div>
             </div>
         </div>
