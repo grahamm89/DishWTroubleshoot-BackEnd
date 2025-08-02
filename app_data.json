@@ -1,0 +1,43 @@
+{
+  "symptoms": {
+    "Tannin Stains": { "causes": "Tea, coffee, red-wine tannins adhere—worse where glaze has eroded.", "actions": "Switch to a chlorinated detergent or pre-soak in Suma Shine K2. Renovate with Bactosol where possible." },
+    "Starch": { "causes": "Heated plates, long holds, sticky foods, low detergent or wash pressure/temperature.", "actions": "Increase alkaline detergent, boost temp/pressure, improve pre-scraping." },
+    "Foaming": { "causes": "Low wash/rinse temp, hand-dish liquid in tank, high food load, high tank level, poor rinse.", "actions": "Raise temps, reduce rinse-aid, skim foam, drain & refill, remove high-foam products." },
+    "Drying Marks": { "causes": "Weak rinse, low rinse-aid, hard water, low rinse temperature, poor racking.", "actions": "Repair rinse, dose rinse-aid correctly, soften or de-ionise water, rack items angle-down." },
+    "Detergent Overuse": { "causes": "Broken pump, high set-point, scaled probe, faulty fill valve.", "actions": "Calibrate/repair pump, descale probe, lower set-point, free fill valve." },
+    "Limescale": { "causes": "Hard water with no/failed softener, insufficient detergent, wrong rinse-aid.", "actions": "Regenerate or repair softener, add suitable detergent, use hard-water rinse-aid." },
+    "Cracking Plastic": { "causes": "Excess heat, exposure to hand-dish liquid, aggressive rinse-aid, very high chlorine.", "actions": "Lower rinse temp, remove problem chemicals, use plastic-safe range (A11/A8)." },
+    "Bits After Rinsing": { "causes": "Poor rinse, dirty wash water, coffee grounds/tea bags, poor racking.", "actions": "Service rinse, refresh wash tank, improve pre-scrape, flush rinse supply." },
+    "Detergent Carryover": { "causes": "Poor rinse, high detergent concentration, low rinse pressure.", "actions": "Repair rinse, dial back detergent, clear rinse jets, increase pressure." },
+    "Cloudy Glasses": { "causes": "Hard-water scale, detergent carry-over, too high detergent, high dissolved solids.", "actions": "Soft water or suitable rinse-aid, optimise detergent dose, rinse pressure up." },
+    "Rusty Cutlery": { "causes": "Prolonged soaking, contact with salt or strong chlorine.", "actions": "Shorten soak, rinse quickly, reduce chlorine, upgrade cutlery grade." },
+    "Black SS Cutlery": { "causes": "Contact with silver-dip or excess heat.", "actions": "Keep stainless away from silver cleaner and high heat." },
+    "Silver Tarnishing": { "causes": "Sulphides (eggs/fire), chlorine, heat.", "actions": "Minimise sulphide/chlorine contact, burnish, run lower temps." },
+    "Machine Scaled": { "causes": "Hard-water scale from insufficient detergent in hard areas.", "actions": "Check salt & softener, descale with acid cleaner, ensure detergent dosing." },
+    "Wash Jets Blocked": { "causes": "Debris blocks jets—water can’t reach ware.", "actions": "Remove & clean jets daily, flush thoroughly." }
+  },
+  "questions": [
+    { "key": "dosingOn", "text": "Is the dosing equipment switched on?" },
+    { "key": "dosingWorking", "text": "Is the dosing equipment working correctly?" },
+    { "key": "temps", "text": "Are the temperatures correct?", "note": "Pref: 40–55 °C pre-wash · 55–65 °C wash · 80–90 °C rinse · 60–70 °C low-temp" },
+    { "key": "jets", "text": "Is the machine working correctly, with all wash and rinse jets clear?" },
+    { "key": "practice", "text": "Are staff observing good practice (pre-scraping, racking well)?" },
+    { "key": "detergent", "text": "Is the correct detergent used and tubes in the right containers?" },
+    { "key": "titration", "text": "Is detergent at the correct strength?" }
+  ],
+  "chemicalTests": [
+    {
+      "title": "Detecting Detergent Carry Over",
+      "description": "Add <em>Indicator Reagent</em> to dishes or glassware. A pink colour indicates alkali—detergent is not being rinsed off.",
+      "check": "Check rinse arms are not blocked and the rinse cycle is functioning."
+    },
+    {
+      "title": "Detecting Starch",
+      "description": "Add a drop of <em>ACID&nbsp;1</em>, then a drop of <em>Iodide/Iodate</em> to the surface. A blue-black colour reveals starch."
+    },
+    {
+      "title": "Detecting Limescale",
+      "description": "Apply a few drops of <em>ACID&nbsp;3</em> to the suspected area. Bubbling indicates carbonate scale, which the acid will remove."
+    }
+  ]
+}
