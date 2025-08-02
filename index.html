@@ -4,78 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Dishwasher Troubleshooting</title>
-
-<style>
-:root{
-  --bg:#f7f9fa;        --card:#ffffff; --txt:#222;
-  --accent:#0073e6;     --sep:rgba(0,0,0,.08);
-  --yes:#2e8b57;       --no:#c0392b;
-  --danger:#e74c3c;     --success:#2ecc71;
-}
-@media (prefers-color-scheme:dark){
-  :root{
-    --bg:#121417;      --card:#1e2125; --txt:#e0e3e6;
-    --accent:#53a2ff;  --sep:rgba(255,255,255,.08);
-    --yes:#2ecc71;     --no:#e74c3c;
-  }
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  background:var(--bg);color:var(--txt);line-height:1.45;padding:1rem;
-}
-h1{margin:.2rem 0 .6rem}
-h2{margin-bottom:.5rem}
-section{
-  background:var(--card);padding:1rem 1.1rem;border-radius:8px;
-  box-shadow:0 2px 4px rgba(0,0,0,.05);margin-bottom:1.6rem
-}
-label{font-weight:600}
-a.inline{color:var(--accent);text-decoration:none;font-weight:600}
-a.inline:hover{text-decoration:underline}
-select,button,input{
-  font-size:1rem;padding:.55rem .7rem;border-radius:6px;border:1px solid var(--sep)
-}
-select,input{width:100%}
-button{
-  cursor:pointer;background:var(--accent);border-color:var(--accent);color:#fff;
-  transition:opacity .18s;width:100%
-}
-button:hover{opacity:.9}
-.result{
-  display:none;margin-top:1rem;border-left:4px solid var(--accent);padding-left:1rem
-}
-.result.show{display:block;animation:fade .35s}
-@keyframes fade{from{opacity:0}to{opacity:1}}
-#essBar{margin-bottom:1.2rem;font-size:.95rem}
-#essBar a{margin-right:1.2rem}
-.qcard{
-  border:1px solid var(--sep);border-radius:6px;padding:.8rem .9rem;
-  margin-bottom:.9rem;display:flex;flex-wrap:wrap;align-items:center
-}
-.qcard p{flex:1 1 260px;margin:.25rem 0;font-weight:500}
-.toggle{display:inline-flex;border-radius:20px;overflow:hidden;margin-left:auto}
-.toggle input{display:none}
-.toggle label{
-  padding:.34rem .95rem;font-size:.92rem;cursor:pointer;transition:opacity .15s;opacity:.4
-}
-.toggle input:checked+label{opacity:1}
-.toggle .yes{background:var(--yes);color:#fff}
-.toggle .no {background:var(--no);color:#fff}
-.note{flex:1 1 100%;margin:.4rem 0 0;font-size:.85rem;color:var(--accent)}
-.mm-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
-.mm-row div{flex:1 1 200px}
-#chemTestsList{list-style:none;margin:0;padding:0}
-#chemTestsList li{padding:.8rem 0;border-bottom:1px solid var(--sep)}
-#chemTestsList li:last-child{border:none}
-#chemTestsList strong{display:block;margin-bottom:.3rem}
-@media print{
-  #copyBtn,#essBar a{display:none!important}
-  body{background:#fff}
-}
-</style>
-<link rel="manifest"></head>
+<link rel="stylesheet" href="css/main.css">
+<link rel="manifest">
+</head>
 <body>
+
+<div class="wrapper">
 
 <h1>Dishwasher Troubleshooting</h1>
 
@@ -119,14 +53,16 @@ button:hover{opacity:.9}
   <button id="copyBtn" style="margin-top:.9rem">Copy Summary</button>
 </section>
 
-<section id="chemTests">
-  <h2>3. Chemical Tests</h2>
-  <ul id="chemTestsList">
-    <li><em>Loading tests...</em></li>
-  </ul>
-</section>
+  <section id="chemTests">
+    <h2>3. Chemical Tests</h2>
+    <ul id="chemTestsList">
+      <li><em>Loading tests...</em></li>
+    </ul>
+  </section>
 
-<script>
+  </div>
+
+  <script>
 document.addEventListener('DOMContentLoaded', () => {
   const $ = sel => document.querySelector(sel);
   const ls = {
