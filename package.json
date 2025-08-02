@@ -1,8 +1,0 @@
-{
-  "name": "dishwtroubleshoot-backend",
-  "version": "1.0.0",
-  "description": "Dishwasher Troubleshooting Helper frontend project",
-  "scripts": {
-    "test": "node test/app_data.test.js"
-  }
-}

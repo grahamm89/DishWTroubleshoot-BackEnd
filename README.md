@@ -3,42 +3,8 @@ A simple, offline-first web application designed to help technicians and users d
 
 All application content (symptoms, questions, and tests) is loaded from an external app_data.json file, making it easy to update and customize without changing the application code.
 
-## Repository Overview
-
-This project is an offline-first web application that helps technicians diagnose dishwasher issues. It offers symptom lookup, essential checklists, and chemical test references, with data stored separately for easy updates.
-
-### Core Files
-
-| File | Purpose |
-|------|---------|
-| `index.html` | Main application containing UI, styling, and logic for loading data, tracking checklist answers, and supporting offline use via a service worker. |
-| `app_data.json` | External data source defining symptoms, diagnostic questions, and chemical tests used by the app. |
-| `ContentsEditor.html` | Standalone tool that loads and edits `app_data.json` through a form-based interface. |
-| `ContentEditorInstructions.txt` | Step-by-step instructions for using the content editor and updating deployment data. |
-
-### Application Logic (`index.html`)
-
-* Local storage wrapper keeps user preferences (e.g., selected symptom, checklist choices) across sessions.
-* Data fetching loads `app_data.json`, falling back with UI error messages if unavailable.
-* Symptom lookup builds a dropdown from loaded data and displays likely causes and suggested actions for the selected symptom.
-* Essential checklist renders questions with Yes/No toggles and remembers responses in local storage.
-* Chemical tests section lists reference tests with optional follow-up checks.
-* Summary & persistence: event listeners compile advice, copy results to clipboard, and save machine details locally.
-* Initialization loads data, builds sections, restores previous state, and starts service-worker registration to enable offline caching of app assets and data.
-
-### Data Structure (`app_data.json`)
-
-* `symptoms`: mapping of symptom names to `causes` and recommended `actions`.
-* `questions`: array of checklist items with unique keys and optional notes.
-* `chemicalTests`: list of chemical tests, each with a title, description, and optional check instructions.
-
-### Content Editor (`ContentsEditor.html`)
-
-* Provides file upload, form-based editing, and JSON download to update `app_data.json` without manual JSON editing.
-* Functions exist to populate forms from existing data, add/remove symptoms/questions/tests, and regenerate the JSON file for download.
-
 Live Demo
-You can access the live application here:
+You can access the live application here: 
 https://grahamm89.github.io/DishWTroubleshoot-BackEnd/index.html
 
 
