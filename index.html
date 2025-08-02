@@ -22,11 +22,10 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{
   font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  background:var(--bg);color:var(--txt);line-height:1.45;
+  background:var(--bg);color:var(--txt);line-height:1.45;padding:1rem;
 }
 h1{margin:.2rem 0 .6rem}
 h2{margin-bottom:.5rem}
-.container{max-width:900px;margin:0 auto;padding:1rem}
 section{
   background:var(--card);padding:1rem 1.1rem;border-radius:8px;
   box-shadow:0 2px 4px rgba(0,0,0,.05);margin-bottom:1.6rem
@@ -78,7 +77,6 @@ button:hover{opacity:.9}
 <link rel="manifest"></head>
 <body>
 
-<header class="container">
 <h1>Dishwasher Troubleshooting</h1>
 
 <div id="essBar">
@@ -90,9 +88,6 @@ button:hover{opacity:.9}
     Water Hardness
   </a>
 </div>
-</header>
-
-<main class="container">
 
 <section>
   <h2>1. Quick Symptom Lookup</h2>
@@ -130,8 +125,6 @@ button:hover{opacity:.9}
     <li><em>Loading tests...</em></li>
   </ul>
 </section>
-
-</main>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
