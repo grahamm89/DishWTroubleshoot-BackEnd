@@ -1,7 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   const $ = sel => document.querySelector(sel);
   const ls = {
-    get: key => JSON.parse(localStorage.getItem(key) || 'null'),
+    get: key => {
+      try {
+        return JSON.parse(localStorage.getItem(key) || 'null');
+      } catch {
+        // Return null if stored data can't be parsed
+        return null;
+      }
+    },
     set: (key, val) => localStorage.setItem(key, JSON.stringify(val))
   };
 
