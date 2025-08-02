@@ -39,14 +39,14 @@
     <div><label for="mModel">Machine model</label><input id="mModel" autocomplete="off"></div>
   </div>
   <template id="toggleTemplate">
-    <div class="qcard">
-      <p></p>
+    <fieldset class="qcard">
+      <legend></legend>
       <div class="toggle">
-        <input type="radio"><label class="yes">Yes</label>
-        <input type="radio"><label class="no">No</label>
+        <input type="radio"><label class="yes" aria-label="Yes" tabindex="0"><span class="icon-check"></span> Yes</label>
+        <input type="radio"><label class="no" aria-label="No" tabindex="0"><span class="icon-cross"></span> No</label>
       </div>
       <div class="note" hidden></div>
-    </div>
+    </fieldset>
   </template>
   <div id="toggleHolder"><p><em>Loading questions...</em></p></div>
   <div id="checklistResult" class="result"></div>
@@ -126,24 +126,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const tpl = $('#toggleTemplate').content;
     DATA.questions.forEach((q, i) => {
       const node = document.importNode(tpl, true);
-      const [p, noteDiv] = [node.querySelector('p'), node.querySelector('.note')];
+      const [legend, noteDiv] = [node.querySelector('legend'), node.querySelector('.note')];
       const [yIn, nIn] = node.querySelectorAll('input');
       const [yLbl, nLbl] = [node.querySelector('.yes'), node.querySelector('.no')];
-      
-      p.textContent = `${i + 1}. ${q.text}`;
+
+      legend.textContent = `${i + 1}. ${q.text}`;
       yIn.id = `${q.key}Y`; nIn.id = `${q.key}N`;
+      yLbl.id = `${yIn.id}-lbl`; nLbl.id = `${nIn.id}-lbl`;
       yIn.name = nIn.name = q.key;
       yIn.value = 'Yes'; nIn.value = 'No';
       yLbl.setAttribute('for', yIn.id); nLbl.setAttribute('for', nIn.id);
-      
+      yIn.setAttribute('aria-labelledby', yLbl.id);
+      nIn.setAttribute('aria-labelledby', nLbl.id);
+
+      [yLbl, nLbl].forEach(lbl => {
+        lbl.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            document.getElementById(lbl.getAttribute('for')).click();
+          }
+        });
+      });
+
       if (q.note) {
         noteDiv.textContent = q.note;
         noteDiv.hidden = false;
       }
-      
+
       const saved = ls.get('toggle_' + q.key) || 'Yes';
       if (saved === 'No') nIn.checked = true; else yIn.checked = true;
-      
+
       checklistHolder.appendChild(node);
     });
   };
